@@ -18,7 +18,7 @@ public class MeasurementsHolderTest {
 
     @Before
     public void setUp() throws Exception {
-        holder = new MeasurementsHolder("Integer");
+        holder = new MeasurementsHolder();
     }
 
     @Test
