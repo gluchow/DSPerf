@@ -7,11 +7,6 @@ import java.util.*;
 
 public class MeasurementsHolder {
     private Map<String, List<Long>> measurements = new HashMap<>();
-    private String elementType;
-
-    public MeasurementsHolder(String elementType) {
-        this.elementType = elementType;
-    }
 
     public void addMeasure(Measurement measurement) {
         if (!measurements.containsKey(measurement.getConfig())) {
@@ -22,19 +17,19 @@ public class MeasurementsHolder {
 
     public Map<String, Long> getMinDurations() {
         Map<String, Long> result = new TreeMap<>();
-        measurements.forEach((key, durations) -> result.put(elementType + Configs.VALUE_SEPARATOR + key + Configs.VALUE_SEPARATOR + "min", Collections.min(durations)));
+        measurements.forEach((key, durations) -> result.put(key + Configs.VALUE_SEPARATOR + "min", Collections.min(durations)));
         return result;
     }
 
     public Map<String, Long> getAvgDurations() {
         Map<String, Long> result = new TreeMap<>();
-        measurements.forEach((key, durations) -> result.put(elementType + Configs.VALUE_SEPARATOR + key + Configs.VALUE_SEPARATOR + "avg", calculateAvg(durations)));
+        measurements.forEach((key, durations) -> result.put(key + Configs.VALUE_SEPARATOR + "avg", calculateAvg(durations)));
         return result;
     }
 
     public Map<String, Long> getMaxDurations() {
         Map<String, Long> result = new TreeMap<>();
-        measurements.forEach((key, durations) -> result.put(elementType + Configs.VALUE_SEPARATOR + key + Configs.VALUE_SEPARATOR + "max", Collections.max(durations)));
+        measurements.forEach((key, durations) -> result.put(key + Configs.VALUE_SEPARATOR + "max", Collections.max(durations)));
         return result;
     }
 

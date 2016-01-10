@@ -1,20 +1,21 @@
 package de.pgl.collection.measure.measurement.set.creator;
 
-import java.util.HashSet;
+import javolution.util.FastSet;
+
 import java.util.Set;
 
-public class IntegerHashSetCreator extends AbstractSetCreator<Integer> {
+public class FastSetCreator extends AbstractSetCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "HashSet";
+        return "FastSet";
     }
 
     @Override
     public Set<Integer> createSet(int size) {
         ensureSizeGreaterZero(size);
 
-        Set<Integer> result = new HashSet<>(size);
+        Set<Integer> result = new FastSet<>(size);
         for (int i = 0; i < size; i++) {
             result.add(i);
         }

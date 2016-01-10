@@ -6,25 +6,25 @@ import de.pgl.collection.measure.io.MeasurementsWriter;
 import de.pgl.collection.measure.measurement.Measurement;
 import de.pgl.collection.measure.measurement.list.creator.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class StringListMeasurements {
+public class ListMeasurements {
     private final int size;
-    private MeasurementsHolder measurementsHolder = new MeasurementsHolder("String");
+    private MeasurementsHolder measurementsHolder = new MeasurementsHolder();
 
-    public StringListMeasurements(int size) {
+    public ListMeasurements(int size) {
         this.size = size;
     }
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
-            proceedListOperations(new StringArrayListCreator());
-            proceedListOperations(new StringLinkedListCreator());
-            proceedListOperations(new StringGapListCreator());
-            proceedListOperations(new StringBigListCreator());
-            proceedListOperations(new StringTreeListCreator());
+            proceedListOperations(new ArrayListCreator());
+            proceedListOperations(new LinkedListCreator());
+            proceedListOperations(new GapListCreator());
+            proceedListOperations(new BigListCreator());
+            proceedListOperations(new TreeListCreator());
+            proceedListOperations(new FastTableCreator());
         }
 
         MeasurementsWriter.writeMeasurements(measurementsHolder.getMinDurations());
@@ -32,20 +32,20 @@ public class StringListMeasurements {
         MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
     }
 
-    private void proceedListOperations(ListCreator<String> listCreator) {
+    private void proceedListOperations(ListCreator<Integer> listCreator) {
         String implName = listCreator.getImplName();
 
         measurementsHolder.addMeasure(new Measurement(implName, "create", size,
                 () -> listCreator.createOrderedList(size)));
 
-        List<String> list = listCreator.createOrderedList(size);
+        List<Integer> list = listCreator.createOrderedList(size);
 
         measurementsHolder.addMeasure(new Measurement(implName, "find_first", size,
-                () -> list.indexOf(firstString())));
+                () -> list.indexOf(first())));
         measurementsHolder.addMeasure(new Measurement(implName, "find_random", size,
-                () -> list.indexOf(randomString())));
+                () -> list.indexOf(random())));
         measurementsHolder.addMeasure(new Measurement(implName, "find_last", size,
-                () -> list.indexOf(lastString())));
+                () -> list.indexOf(last())));
 
         measurementsHolder.addMeasure(new Measurement(implName, "get_first", size,
                 () -> list.get(first())));
@@ -55,30 +55,19 @@ public class StringListMeasurements {
                 () -> list.get(last())));
 
         measurementsHolder.addMeasure(new Measurement(implName, "add_first", size,
-                () -> list.add(lastString())));
+                () -> list.add(last())));
         measurementsHolder.addMeasure(new Measurement(implName, "add_random", size,
-                () -> list.add(random(), lastString())));
+                () -> list.add(random(), last())));
         measurementsHolder.addMeasure(new Measurement(implName, "add_last", size,
-                () -> list.add(first(), lastString())));
+                () -> list.add(first(), last())));
 
         measurementsHolder.addMeasure(new Measurement(implName, "remove_first", size,
-                () -> list.remove(firstString())));
+                () -> list.remove(first())));
         measurementsHolder.addMeasure(new Measurement(implName, "remove_random", size,
-                () -> list.remove(randomString())));
+                () -> list.remove(random())));
         measurementsHolder.addMeasure(new Measurement(implName, "remove_last", size,
-                () -> list.remove(lastString())));
-    }
+                () -> list.remove(last())));
 
-    private String randomString() {
-        return "" + (randomInt(last()));
-    }
-
-    private String lastString() {
-        return "" + (size - 1);
-    }
-
-    private String firstString() {
-        return "" + 0;
     }
 
     private int random() {

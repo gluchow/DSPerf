@@ -1,21 +1,22 @@
 package de.pgl.collection.measure.measurement.list.creator;
 
-import java.util.ArrayList;
+import org.magicwerk.brownies.collections.BigList;
+
 import java.util.List;
 import java.util.Random;
 
-public class IntegerArrayListCreator extends AbstractListCreator<Integer> {
+public class BigListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "ArrayList";
+        return "BigList";
     }
 
     @Override
     public List<Integer> createOrderedList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<Integer> result = new ArrayList<>(size);
+        List<Integer> result = new BigList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(i);
         }
@@ -26,7 +27,7 @@ public class IntegerArrayListCreator extends AbstractListCreator<Integer> {
     public List<Integer> createRandomList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<Integer> result = new ArrayList<>(size);
+        List<Integer> result = new BigList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(new Random().nextInt());
         }

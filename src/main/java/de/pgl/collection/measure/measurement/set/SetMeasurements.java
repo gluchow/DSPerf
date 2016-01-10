@@ -4,26 +4,28 @@ import de.pgl.collection.measure.Configs;
 import de.pgl.collection.measure.evaluation.MeasurementsHolder;
 import de.pgl.collection.measure.io.MeasurementsWriter;
 import de.pgl.collection.measure.measurement.Measurement;
-import de.pgl.collection.measure.measurement.set.creator.IntegerHashSetCreator;
-import de.pgl.collection.measure.measurement.set.creator.IntegerTreeSetCreator;
+import de.pgl.collection.measure.measurement.set.creator.FastSetCreator;
+import de.pgl.collection.measure.measurement.set.creator.HashSetCreator;
 import de.pgl.collection.measure.measurement.set.creator.SetCreator;
+import de.pgl.collection.measure.measurement.set.creator.TreeSetCreator;
 
 import java.util.Random;
 import java.util.Set;
 
-public class IntegerSetMeasurements {
+public class SetMeasurements {
 
     private final int size;
-    private MeasurementsHolder measurementsHolder = new MeasurementsHolder("Integer");
+    private MeasurementsHolder measurementsHolder = new MeasurementsHolder();
 
-    public IntegerSetMeasurements(int size) {
+    public SetMeasurements(int size) {
         this.size = size;
     }
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
-            proceedListOperations(new IntegerTreeSetCreator());
-            proceedListOperations(new IntegerHashSetCreator());
+            proceedListOperations(new TreeSetCreator());
+            proceedListOperations(new HashSetCreator());
+            proceedListOperations(new FastSetCreator());
         }
 
         MeasurementsWriter.writeMeasurements(measurementsHolder.getMinDurations());

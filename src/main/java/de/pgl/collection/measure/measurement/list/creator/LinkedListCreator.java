@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class StringLinkedListCreator extends AbstractListCreator<String> {
+public class LinkedListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
@@ -12,23 +12,23 @@ public class StringLinkedListCreator extends AbstractListCreator<String> {
     }
 
     @Override
-    public List<String> createOrderedList(int size) {
+    public List<Integer> createOrderedList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<String> result = new LinkedList<>();
+        List<Integer> result = new LinkedList<>();
         for (int i = 0; i < size; i++) {
-            result.add("" + i);
+            result.add(i);
         }
         return result;
     }
 
     @Override
-    public List<String> createRandomList(int size) {
+    public List<Integer> createRandomList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<String> result = new LinkedList<>();
+        List<Integer> result = new LinkedList<>();
         for (int i = 0; i < size; i++) {
-            result.add("" + new Random().nextInt());
+            result.add(new Random().nextInt());
         }
         return result;
     }

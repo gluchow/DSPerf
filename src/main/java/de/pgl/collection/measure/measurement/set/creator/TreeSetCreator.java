@@ -3,7 +3,7 @@ package de.pgl.collection.measure.measurement.set.creator;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class IntegerTreeSetCreator extends AbstractSetCreator<Integer> {
+public class TreeSetCreator extends AbstractSetCreator<Integer> {
 
     @Override
     public String getImplName() {

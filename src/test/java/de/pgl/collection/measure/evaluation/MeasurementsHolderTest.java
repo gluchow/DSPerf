@@ -2,7 +2,7 @@ package de.pgl.collection.measure.evaluation;
 
 import de.pgl.collection.measure.Configs;
 import de.pgl.collection.measure.measurement.Measurement;
-import de.pgl.collection.measure.measurement.list.creator.IntegerArrayListCreator;
+import de.pgl.collection.measure.measurement.list.creator.ArrayListCreator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class MeasurementsHolderTest {
     @Test
     public void canAddOneMeasurement() {
         int size = 10;
-        List<Integer> list = new IntegerArrayListCreator().createOrderedList(size);
+        List<Integer> list = new ArrayListCreator().createOrderedList(size);
         holder.addMeasure(new Measurement("ArrayList", "find", size, () -> list.indexOf(0)));
         Assert.assertEquals("Should have one measurement.", 1, holder.countOfAllMeasurements());
     }
