@@ -1,6 +1,5 @@
 package de.pgl.collection.measure.measurement;
 
-import de.pgl.collection.measure.evaluation.MeasurementsHolder;
 
 public class Measurement {
     private String implClass;
@@ -8,24 +7,11 @@ public class Measurement {
     private int size;
     private Long durationInMs;
 
-    public Measurement(String implClass, String method, int size) {
+    public Measurement(String implClass, String method, int size, Execution execution) {
         this.implClass = implClass;
         this.method = method;
         this.size = size;
-    }
-
-    public Measurement execute(Execution execution) {
-        durationInMs = execution.durationInMs();
-        return this;
-    }
-
-    public void addToStack() {
-        MeasurementsHolder.add(this);
-    }
-
-    public void executeAndHoldResult(Execution execution) {
-        execute(execution);
-        addToStack();
+        this.durationInMs = execution.durationInMs();
     }
 
     public Long getDurationInMs() {

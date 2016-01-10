@@ -13,59 +13,40 @@ public class ListMeasurements {
     public static void main(String[] args) {
         createBigListBeforeTest(100000);
 
-        for(int i=0; i<10;i++) {
-            proceedArrayListOperations();
-            proceedTreeListOperations();
+        MeasurementsHolder measurementsHolder = new MeasurementsHolder();
+
+        for (int i = 0; i < 10; i++) {
+            proceedListOperations("ArrayList", measurementsHolder, new IntegerArrayListCreator());
+            proceedListOperations("LinkedList", measurementsHolder, new IntegerLinkedListCreator());
         }
 
-        MeasurementsWriter.writeMeasurements(MeasurementsHolder.getMinDurations());
-        MeasurementsWriter.writeMeasurements(MeasurementsHolder.getAvgDurations());
-        MeasurementsWriter.writeMeasurements(MeasurementsHolder.getMaxDurations());
-
-        MeasurementsWriter.close();
+        MeasurementsWriter.writeMeasurements(measurementsHolder.getMinDurations());
+        MeasurementsWriter.writeMeasurements(measurementsHolder.getAvgDurations());
+        MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
     }
 
-    private static void proceedTreeListOperations() {
-        int size = 2000000;
-        int highestInt = size - 1;
-
-        String implName = "LinkedList";
-        Measurement createMeasure = new Measurement(implName, "create", size);
-        createMeasure.executeAndHoldResult(() -> IntegerListCreateHelper.createOrderedLinkedList(size));
-
-        List<Integer> list = IntegerListCreateHelper.createOrderedLinkedList(size);
-
-        Measurement findMeasure = new Measurement(implName, "find", size);
-        findMeasure.executeAndHoldResult(() -> list.indexOf(randomInt(highestInt)));
-        findMeasure.executeAndHoldResult(() -> list.indexOf(0));
-        findMeasure.executeAndHoldResult(() -> list.indexOf(highestInt));
-
-        Measurement getMeasure = new Measurement(implName, "get", size);
-        getMeasure.executeAndHoldResult(() -> list.indexOf(randomInt(highestInt)));
-        getMeasure.executeAndHoldResult(() -> list.indexOf(0));
-        getMeasure.executeAndHoldResult(() -> list.indexOf(highestInt));
-    }
-
-    private static void proceedArrayListOperations() {
+    private static void proceedListOperations(String implName, MeasurementsHolder holder, ListCreator<Integer> listCreator) {
         int size = 1000000;
         int highestInt = size - 1;
 
-        String implName = "ArrayList";
+        holder.addMeasure(new Measurement(implName, "create", size,
+                () -> listCreator.createOrderedList(size)));
 
-        Measurement createMeasure = new Measurement(implName, "create", size);
-        createMeasure.executeAndHoldResult(() -> IntegerListCreateHelper.createOrderedArrayList(size));
+        List<Integer> list = listCreator.createOrderedList(size);
 
-        List<Integer> list = IntegerListCreateHelper.createOrderedArrayList(size);
+        holder.addMeasure(new Measurement(implName, "find", size,
+                () -> list.indexOf(randomInt(highestInt))));
+        holder.addMeasure(new Measurement(implName, "find", size,
+                () -> list.indexOf(0)));
+        holder.addMeasure(new Measurement(implName, "find", size,
+                () -> list.indexOf(highestInt)));
 
-        Measurement findMeasure = new Measurement(implName, "find", size);
-        findMeasure.executeAndHoldResult(() -> list.indexOf(randomInt(highestInt)));
-        findMeasure.executeAndHoldResult(() -> list.indexOf(0));
-        findMeasure.executeAndHoldResult(() -> list.indexOf(highestInt));
-
-        Measurement getMeasure = new Measurement(implName, "get", size);
-        getMeasure.executeAndHoldResult(() -> list.indexOf(randomInt(highestInt)));
-        getMeasure.executeAndHoldResult(() -> list.indexOf(0));
-        getMeasure.executeAndHoldResult(() -> list.indexOf(highestInt));
+        holder.addMeasure(new Measurement(implName, "get", size,
+                () -> list.indexOf(randomInt(highestInt))));
+        holder.addMeasure(new Measurement(implName, "get", size,
+                () -> list.indexOf(0)));
+        holder.addMeasure(new Measurement(implName, "get", size,
+                () -> list.indexOf(highestInt)));
     }
 
     private static int randomInt(int max) {

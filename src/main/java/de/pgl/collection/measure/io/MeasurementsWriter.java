@@ -13,29 +13,25 @@ public class MeasurementsWriter {
 
     private static void init() {
         try {
-            writer = new PrintWriter(new FileWriter(MEASURE_LOG_FILENAME, false));
+            writer = new PrintWriter(new FileWriter(MEASURE_LOG_FILENAME, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void close() {
+    public static void writeMeasurements(Map<String, Long> measurements) {
+        init();
+        measurements.forEach(MeasurementsWriter::writeLine);
         writer.close();
     }
 
-    public static void writeLine(String measurementData) {
-        if (writer == null) {
-            init();
-        }
+    private static void writeLine(String measurementData) {
         writer.println(measurementData);
+        System.out.println(measurementData);
     }
 
-    public static void writeLine(String measurementConfig, Long duration) {
+    private static void writeLine(String measurementConfig, Long duration) {
         writeLine(measurementConfig + SEPARATOR + duration);
-    }
-
-    public static void writeMeasurements(Map<String, Long> measurements) {
-        measurements.forEach(MeasurementsWriter::writeLine);
     }
 
 }
