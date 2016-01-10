@@ -1,13 +1,14 @@
 package de.pgl.collection.measure.io;
 
+import de.pgl.collection.measure.Configs;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 
 public class MeasurementsWriter {
-    public static final String MEASURE_LOG_FILENAME = "result.txt";
-    private static final String SEPARATOR = ":";
+    public static final String MEASURE_LOG_FILENAME = "result.csv";
 
     private static PrintWriter writer = null;
 
@@ -31,7 +32,7 @@ public class MeasurementsWriter {
     }
 
     private static void writeLine(String measurementConfig, Long duration) {
-        writeLine(measurementConfig + SEPARATOR + duration);
+        writeLine(measurementConfig + Configs.VALUE_SEPARATOR + duration);
     }
 
 }

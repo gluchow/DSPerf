@@ -1,6 +1,8 @@
 package de.pgl.collection.measure.measurement;
 
 
+import de.pgl.collection.measure.Configs;
+
 public class Measurement {
     private String implClass;
     private String method;
@@ -19,7 +21,7 @@ public class Measurement {
     }
 
     public String getConfig() {
-        return String.format("%s-%s-%s", implClass, method, size);
+        return implClass + Configs.VALUE_SEPARATOR + method + Configs.VALUE_SEPARATOR + size;
     }
 
     @Override

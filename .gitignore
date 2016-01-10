@@ -1,4 +1,4 @@
 .idea
 /target
 /*.iml
-result.txt
+/result.csv

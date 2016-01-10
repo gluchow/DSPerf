@@ -1,5 +1,6 @@
 package de.pgl.collection.measure.evaluation;
 
+import de.pgl.collection.measure.Configs;
 import de.pgl.collection.measure.measurement.Measurement;
 import de.pgl.collection.measure.measurement.list.IntegerArrayListCreator;
 import org.junit.Assert;
@@ -34,7 +35,7 @@ public class MeasurementsHolderTest {
         holder.addMeasure(createMeasurementMockWithDuration(configName, 12L));
         holder.addMeasure(createMeasurementMockWithDuration(configName, 30L));
         holder.addMeasure(createMeasurementMockWithDuration(configName, 10L));
-        long actualMin = holder.getMinDurations().get(configName + "-min");
+        long actualMin = holder.getMinDurations().get(configName + Configs.VALUE_SEPARATOR + "min");
         Assert.assertEquals(10L, actualMin);
     }
 
@@ -44,7 +45,7 @@ public class MeasurementsHolderTest {
         holder.addMeasure(createMeasurementMockWithDuration(configName, 12L));
         holder.addMeasure(createMeasurementMockWithDuration(configName, 30L));
         holder.addMeasure(createMeasurementMockWithDuration(configName, 10L));
-        long actualAvg = holder.getAvgDurations().get(configName + "-avg");
+        long actualAvg = holder.getAvgDurations().get(configName + Configs.VALUE_SEPARATOR + "avg");
         Assert.assertEquals(17L, actualAvg);
     }
 
@@ -54,7 +55,7 @@ public class MeasurementsHolderTest {
         holder.addMeasure(createMeasurementMockWithDuration(configName, 12L));
         holder.addMeasure(createMeasurementMockWithDuration(configName, 30L));
         holder.addMeasure(createMeasurementMockWithDuration(configName, 10L));
-        long actualMax = holder.getMaxDurations().get(configName + "-max");
+        long actualMax = holder.getMaxDurations().get(configName + Configs.VALUE_SEPARATOR + "max");
         Assert.assertEquals(30L, actualMax);
     }
 
