@@ -19,8 +19,6 @@ public class IntegerListMeasurements {
     }
 
     public void performMeasurements() {
-        createBigListBeforeTest(1000000);
-
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
             proceedListOperations(new IntegerArrayListCreator());
             proceedListOperations(new IntegerLinkedListCreator());
@@ -86,13 +84,6 @@ public class IntegerListMeasurements {
 
     private static int randomInt(int max) {
         return new Random().nextInt(max);
-    }
-
-    private static void createBigListBeforeTest(int size) {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            list.add(i);
-        }
     }
 
 }
