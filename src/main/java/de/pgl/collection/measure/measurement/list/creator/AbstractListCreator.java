@@ -1,4 +1,4 @@
-package de.pgl.collection.measure.measurement.list;
+package de.pgl.collection.measure.measurement.list.creator;
 
 public abstract class AbstractListCreator<T> implements ListCreator<T> {
 

@@ -2,7 +2,7 @@ package de.pgl.collection.measure.evaluation;
 
 import de.pgl.collection.measure.Configs;
 import de.pgl.collection.measure.measurement.Measurement;
-import de.pgl.collection.measure.measurement.list.IntegerArrayListCreator;
+import de.pgl.collection.measure.measurement.list.creator.IntegerArrayListCreator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

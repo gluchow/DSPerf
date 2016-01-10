@@ -1,10 +1,15 @@
-package de.pgl.collection.measure.measurement.list;
+package de.pgl.collection.measure.measurement.list.creator;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class IntegerArrayListCreator extends AbstractListCreator<Integer> {
+
+    @Override
+    public String getImplName() {
+        return "ArrayList";
+    }
 
     @Override
     public List<Integer> createOrderedList(int size) {

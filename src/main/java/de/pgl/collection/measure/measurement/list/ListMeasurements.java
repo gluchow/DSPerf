@@ -1,23 +1,32 @@
 package de.pgl.collection.measure.measurement.list;
 
+import de.pgl.collection.measure.Configs;
 import de.pgl.collection.measure.evaluation.MeasurementsHolder;
 import de.pgl.collection.measure.io.MeasurementsWriter;
 import de.pgl.collection.measure.measurement.Measurement;
+import de.pgl.collection.measure.measurement.list.creator.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ListMeasurements {
+    private final int size;
+    private MeasurementsHolder measurementsHolder = new MeasurementsHolder();
 
-    public static void main(String[] args) {
-        createBigListBeforeTest(100000);
+    public ListMeasurements(int size) {
+        this.size = size;
+    }
 
-        MeasurementsHolder measurementsHolder = new MeasurementsHolder();
+    public void performMeasurements() {
+        createBigListBeforeTest(1000000);
 
-        for (int i = 0; i < 10; i++) {
-            proceedListOperations("ArrayList", measurementsHolder, new IntegerArrayListCreator());
-            proceedListOperations("LinkedList", measurementsHolder, new IntegerLinkedListCreator());
+        for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
+            proceedListOperations(new IntegerArrayListCreator());
+            proceedListOperations(new IntegerLinkedListCreator());
+            proceedListOperations(new IntegerGapListCreator());
+            proceedListOperations(new IntegerBigListCreator());
+            proceedListOperations(new IntegerTreeListCreator());
         }
 
         MeasurementsWriter.writeMeasurements(measurementsHolder.getMinDurations());
@@ -25,27 +34,28 @@ public class ListMeasurements {
         MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
     }
 
-    private static void proceedListOperations(String implName, MeasurementsHolder holder, ListCreator<Integer> listCreator) {
-        int size = 1000000;
+    private void proceedListOperations(ListCreator<Integer> listCreator) {
         int highestInt = size - 1;
 
-        holder.addMeasure(new Measurement(implName, "create", size,
+        String implName = listCreator.getImplName();
+
+        measurementsHolder.addMeasure(new Measurement(implName, "create", size,
                 () -> listCreator.createOrderedList(size)));
 
         List<Integer> list = listCreator.createOrderedList(size);
 
-        holder.addMeasure(new Measurement(implName, "find", size,
+        measurementsHolder.addMeasure(new Measurement(implName, "find", size,
                 () -> list.indexOf(randomInt(highestInt))));
-        holder.addMeasure(new Measurement(implName, "find", size,
+        measurementsHolder.addMeasure(new Measurement(implName, "find", size,
                 () -> list.indexOf(0)));
-        holder.addMeasure(new Measurement(implName, "find", size,
+        measurementsHolder.addMeasure(new Measurement(implName, "find", size,
                 () -> list.indexOf(highestInt)));
 
-        holder.addMeasure(new Measurement(implName, "get", size,
+        measurementsHolder.addMeasure(new Measurement(implName, "get", size,
                 () -> list.indexOf(randomInt(highestInt))));
-        holder.addMeasure(new Measurement(implName, "get", size,
+        measurementsHolder.addMeasure(new Measurement(implName, "get", size,
                 () -> list.indexOf(0)));
-        holder.addMeasure(new Measurement(implName, "get", size,
+        measurementsHolder.addMeasure(new Measurement(implName, "get", size,
                 () -> list.indexOf(highestInt)));
     }
 
