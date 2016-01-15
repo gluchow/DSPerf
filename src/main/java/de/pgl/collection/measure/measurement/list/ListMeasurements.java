@@ -27,9 +27,9 @@ public class ListMeasurements {
             proceedListOperations(new FastTableCreator());
         }
 
-        MeasurementsWriter.writeMeasurements(measurementsHolder.getMinDurations());
-        MeasurementsWriter.writeMeasurements(measurementsHolder.getAvgDurations());
-        MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
+        MeasurementsWriter.writeMeasurements(measurementsHolder.getDurations());
+//        MeasurementsWriter.writeMeasurements(measurementsHolder.getAvgDurations());
+//        MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
     }
 
     private void proceedListOperations(ListCreator<Integer> listCreator) {

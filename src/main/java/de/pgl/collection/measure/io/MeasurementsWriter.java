@@ -20,7 +20,13 @@ public class MeasurementsWriter {
         }
     }
 
-    public static void writeMeasurements(Map<String, Long> measurements) {
+//    public static void writeMeasurements(Map<String, Long> measurements) {
+//        init();
+//        measurements.forEach(MeasurementsWriter::writeLine);
+//        writer.close();
+//    }
+
+    public static void writeMeasurements(Map<String, String> measurements) {
         init();
         measurements.forEach(MeasurementsWriter::writeLine);
         writer.close();
@@ -31,7 +37,7 @@ public class MeasurementsWriter {
         System.out.println(measurementData);
     }
 
-    private static void writeLine(String measurementConfig, Long duration) {
+    private static void writeLine(String measurementConfig, String duration) {
         writeLine(measurementConfig + Configs.VALUE_SEPARATOR + duration);
     }
 

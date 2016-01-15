@@ -28,9 +28,9 @@ public class SetMeasurements {
             proceedListOperations(new FastSetCreator());
         }
 
-        MeasurementsWriter.writeMeasurements(measurementsHolder.getMinDurations());
-        MeasurementsWriter.writeMeasurements(measurementsHolder.getAvgDurations());
-        MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
+        MeasurementsWriter.writeMeasurements(measurementsHolder.getDurations());
+//        MeasurementsWriter.writeMeasurements(measurementsHolder.getAvgDurations());
+//        MeasurementsWriter.writeMeasurements(measurementsHolder.getMaxDurations());
     }
 
     private void proceedListOperations(SetCreator<Integer> setCreator) {

@@ -33,6 +33,15 @@ public class MeasurementsHolder {
         return result;
     }
 
+    public Map<String, String> getDurations() {
+        Map<String, String> result = new TreeMap<>();
+        measurements.forEach((key, durations) -> result.put(key, //
+                Collections.min(durations) + Configs.VALUE_SEPARATOR //
+                        + calculateAvg(durations) + Configs.VALUE_SEPARATOR //
+                        + Collections.max(durations)));
+        return result;
+    }
+
     private Long calculateAvg(List<Long> durations) {
         return durations.stream().reduce(0L, (sum, duration) -> sum + duration) / durations.size();
     }
