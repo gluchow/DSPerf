@@ -8,7 +8,7 @@ public class LinkedListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "LinkedList";
+        return "LinkedList - Integer";
     }
 
     @Override
@@ -18,6 +18,7 @@ public class LinkedListCreator extends AbstractListCreator<Integer> {
         List<Integer> result = new LinkedList<>();
         for (int i = 0; i < size; i++) {
             result.add(i);
+            printCurrentSizeAt100000(i);
         }
         return result;
     }
@@ -29,6 +30,7 @@ public class LinkedListCreator extends AbstractListCreator<Integer> {
         List<Integer> result = new LinkedList<>();
         for (int i = 0; i < size; i++) {
             result.add(new Random().nextInt(size));
+            printCurrentSizeAt100000(i);
         }
         return result;
     }

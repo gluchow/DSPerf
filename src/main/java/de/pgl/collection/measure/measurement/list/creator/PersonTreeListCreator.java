@@ -1,9 +1,10 @@
 package de.pgl.collection.measure.measurement.list.creator;
 
+import de.pgl.collection.measure.data.Person;
+import de.pgl.collection.measure.data.PersonCreator;
 import org.apache.commons.collections.list.TreeList;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * TreeList Implementierung von apache-commons verwendet AVL-Baum zur Speicherung der Objekte.
@@ -13,32 +14,32 @@ import java.util.Random;
  * ArrayList      1    1      40       1      40
  * LinkedList  5800    1     350       2     325
  */
-public class TreeListCreator extends AbstractListCreator<Integer> {
+public class PersonTreeListCreator extends AbstractListCreator<Person> {
 
     @Override
     public String getImplName() {
-        return "TreeList - Integer";
+        return "TreeList - Person";
     }
 
     @Override
-    public List<Integer> createOrderedList(int size) {
+    public List<Person> createOrderedList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<Integer> result = new TreeList();
+        List<Person> result = new TreeList();
         for (int i = 0; i < size; i++) {
-            result.add(i);
+            result.add(PersonCreator.createPersonWithSuffix(i));
             printCurrentSizeAt100000(i);
         }
         return result;
     }
 
     @Override
-    public List<Integer> createRandomList(int size) {
+    public List<Person> createRandomList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<Integer> result = new TreeList();
+        List<Person> result = new TreeList();
         for (int i = 0; i < size; i++) {
-            result.add(new Random().nextInt(size));
+            result.add(PersonCreator.createRandomPerson(size));
             printCurrentSizeAt100000(i);
         }
         return result;

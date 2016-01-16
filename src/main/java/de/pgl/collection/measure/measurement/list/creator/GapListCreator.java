@@ -9,7 +9,7 @@ public class GapListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "GapList";
+        return "GapList - Integer";
     }
 
     @Override
@@ -19,6 +19,7 @@ public class GapListCreator extends AbstractListCreator<Integer> {
         List<Integer> result = new GapList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(i);
+            printCurrentSizeAt100000(i);
         }
         return result;
     }
@@ -30,6 +31,7 @@ public class GapListCreator extends AbstractListCreator<Integer> {
         List<Integer> result = new GapList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(new Random().nextInt(size));
+            printCurrentSizeAt100000(i);
         }
         return result;
     }

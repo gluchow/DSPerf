@@ -8,7 +8,7 @@ public class ArrayListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "ArrayList";
+        return "ArrayList - Integer";
     }
 
     @Override
@@ -18,6 +18,7 @@ public class ArrayListCreator extends AbstractListCreator<Integer> {
         List<Integer> result = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(i);
+            printCurrentSizeAt100000(i);
         }
         return result;
     }
@@ -29,8 +30,11 @@ public class ArrayListCreator extends AbstractListCreator<Integer> {
         List<Integer> result = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(new Random().nextInt(size));
+            printCurrentSizeAt100000(i);
         }
         return result;
     }
+
+
 
 }

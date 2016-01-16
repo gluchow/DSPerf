@@ -1,91 +1,96 @@
 package de.pgl.collection.measure.measurement.list;
 
 import de.pgl.collection.measure.Configs;
+import de.pgl.collection.measure.data.Person;
+import de.pgl.collection.measure.data.PersonCreator;
 import de.pgl.collection.measure.evaluation.MeasurementsHolder;
 import de.pgl.collection.measure.io.MeasurementsWriter;
 import de.pgl.collection.measure.measurement.Measurement;
 import de.pgl.collection.measure.measurement.list.creator.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
-public class ListMeasurements {
+public class PersonListMeasurements {
     private final int size;
     private MeasurementsHolder measurementsHolder = new MeasurementsHolder();
 
-    public ListMeasurements(int size) {
+    public PersonListMeasurements(int size) {
         this.size = size;
     }
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
-            proceedListOperations(new ArrayListCreator());
-            proceedListOperations(new LinkedListCreator());
-            proceedListOperations(new GapListCreator());
-            proceedListOperations(new BigListCreator());
-            proceedListOperations(new TreeListCreator());
-            proceedListOperations(new FastTableCreator());
+            proceedListOperations(new PersonArrayListCreator());
+            proceedListOperations(new PersonLinkedListCreator());
+            proceedListOperations(new PersonGapListCreator());
+            proceedListOperations(new PersonBigListCreator());
+            proceedListOperations(new PersonTreeListCreator());
+            proceedListOperations(new PersonFastTableCreator());
         }
 
         MeasurementsWriter.writeMeasurements(measurementsHolder.getDurations());
     }
 
-    private void proceedListOperations(ListCreator<Integer> listCreator) {
+    private void proceedListOperations(ListCreator<Person> listCreator) {
         String implName = listCreator.getImplName();
 
         measurementsHolder.addMeasure(new Measurement(implName, "create", size,
                 () -> listCreator.createOrderedList(size)));
 
-        List<Integer> list = listCreator.createOrderedList(size);
+        List<Person> list = listCreator.createOrderedList(size);
 
         measurementsHolder.addMeasure(new Measurement(implName, "find_first", size,
-                () -> list.indexOf(first())));
-        measurementsHolder.addMeasure(new Measurement(implName, "find_center", size,
-                () -> list.indexOf(center())));
+                () -> list.indexOf(firstPerson())));
+        measurementsHolder.addMeasure(new Measurement(implName, "find_random", size,
+                () -> list.indexOf(randomPerson())));
         measurementsHolder.addMeasure(new Measurement(implName, "find_last", size,
-                () -> list.indexOf(last())));
+                () -> list.indexOf(lastPerson())));
 
         measurementsHolder.addMeasure(new Measurement(implName, "get_first", size,
-                () -> list.get(first())));
-        measurementsHolder.addMeasure(new Measurement(implName, "get_center", size,
-                () -> list.get(center())));
+                () -> list.get(firstPosition())));
+        measurementsHolder.addMeasure(new Measurement(implName, "get_random", size,
+                () -> list.get(centerPosition())));
         measurementsHolder.addMeasure(new Measurement(implName, "get_last", size,
-                () -> list.get(last())));
+                () -> list.get(lastPosition())));
 
         measurementsHolder.addMeasure(new Measurement(implName, "add_first", size,
-                () -> list.add(last())));
-        measurementsHolder.addMeasure(new Measurement(implName, "add_center", size,
-                () -> list.add(center(), last())));
+                () -> list.add(lastPerson())));
+        measurementsHolder.addMeasure(new Measurement(implName, "add_random", size,
+                () -> list.add(centerPosition(), lastPerson())));
         measurementsHolder.addMeasure(new Measurement(implName, "add_last", size,
-                () -> list.add(first(), last())));
+                () -> list.add(firstPosition(), lastPerson())));
 
         measurementsHolder.addMeasure(new Measurement(implName, "remove_first", size,
-                () -> list.remove(first())));
-        measurementsHolder.addMeasure(new Measurement(implName, "remove_center", size,
-                () -> list.remove(center())));
+                () -> list.remove(firstPosition())));
+        measurementsHolder.addMeasure(new Measurement(implName, "remove_random", size,
+                () -> list.remove(centerPosition())));
         measurementsHolder.addMeasure(new Measurement(implName, "remove_last", size,
-                () -> list.remove(last())));
+                () -> list.remove(lastPosition())));
 
 
         measurementsHolder.addMeasure(new Measurement(implName, "size", size,
                 list::size));
 
         measurementsHolder.addMeasure(new Measurement(implName, "replace at center", size,
-                () -> list.set(center(), 222)));
+                () -> list.set(centerPosition(), PersonCreator.createPersonWithSuffix(222))));
 
         measurementsHolder.addMeasure(new Measurement(implName, "create sublist of 500 elements by index", size,
                 () -> list.subList(size / 4, size / 4 + 500)));
 
 
         // Tests with other lists
-        List<Integer> randomListToSort = listCreator.createRandomList(size);
+        List<Person> randomListToSort = listCreator.createRandomList(size);
         measurementsHolder.addMeasure(new Measurement(implName, "sort a random list", size,
                 () -> Collections.sort(randomListToSort)));
 
-        List<Integer> orderedList = listCreator.createOrderedList(500);
+        List<Person> orderedList = listCreator.createOrderedList(500);
         measurementsHolder.addMeasure(new Measurement(implName, "contains ordered list of 500 elements", size,
                 () -> list.containsAll(orderedList)));
 
-        List<Integer> randomList = listCreator.createRandomList(size).subList(size / 2, size / 2 + 500);
+        List<Person> randomList = listCreator.createRandomList(size).subList(size / 2, size / 2 + 500);
         measurementsHolder.addMeasure(new Measurement(implName, "contains random list of max 500 elements", size,
                 () -> list.containsAll(randomList)));
 
@@ -101,22 +106,22 @@ public class ListMeasurements {
         removeLast500(list);
 
         measurementsHolder.addMeasure(new Measurement(implName, "add ordered list of 500 elements - first position", size,
-                () -> list.addAll(first(), orderedList)));
+                () -> list.addAll(firstPosition(), orderedList)));
         // reset:
         removeFirst500(list);
 
         measurementsHolder.addMeasure(new Measurement(implName, "add random list of max 500 elements - first position", size,
-                () -> list.addAll(first(), randomList)));
+                () -> list.addAll(firstPosition(), randomList)));
         // reset:
         removeFirst500(list);
 
         measurementsHolder.addMeasure(new Measurement(implName, "add ordered list of 500 elements - center position", size,
-                () -> list.addAll(center(), orderedList)));
+                () -> list.addAll(centerPosition(), orderedList)));
         // reset:
         removeCenter500(list);
 
         measurementsHolder.addMeasure(new Measurement(implName, "add random list of max 500 elements - center position", size,
-                () -> list.addAll(center(), randomList)));
+                () -> list.addAll(centerPosition(), randomList)));
         // reset:
         removeCenter500(list);
 
@@ -138,10 +143,10 @@ public class ListMeasurements {
 
 
         // Iterator tests
-        List<Integer> newOrderedList = listCreator.createOrderedList(size);
+        List<Person> newOrderedList = listCreator.createOrderedList(size);
         measurementsHolder.addMeasure(new Measurement(implName, "Iterator - iterate all", size,
                 () -> {
-                    Iterator<Integer> iterator = newOrderedList.iterator();
+                    Iterator<Person> iterator = newOrderedList.iterator();
                     while (iterator.hasNext()) {
                         iterator.next(); // just call
                     }
@@ -150,7 +155,7 @@ public class ListMeasurements {
         measurementsHolder.addMeasure(new Measurement(implName, "remove local 500 elements - first position", size,
                 () -> removeFirst500(newOrderedList)));
         // reset:
-        newOrderedList.addAll(first(), orderedList);
+        newOrderedList.addAll(firstPosition(), orderedList);
 
         ArrayList<Integer> randomIndexes = HelperUtils.create500RandomIndexesInRange(size);
         measurementsHolder.addMeasure(new Measurement(implName, "remove 500 elements at random index", size,
@@ -158,33 +163,45 @@ public class ListMeasurements {
 
     }
 
-    private void removeCenter500(List<Integer> list) {
-        for (int i = center(); i < center() + 500; i++) {
-            list.remove(center());
+    private void removeCenter500(List<Person> list) {
+        for (int i = centerPosition(); i < centerPosition() + 500; i++) {
+            list.remove(centerPosition());
         }
     }
 
-    private void removeFirst500(List<Integer> list) {
+    private void removeFirst500(List<Person> list) {
         for (int i = 0; i < 500; i++) {
             list.remove(0);
         }
     }
 
-    private void removeLast500(List<Integer> list) {
+    private void removeLast500(List<Person> list) {
         for (int i = size + 499; i >= size; i--) {
             list.remove(i);
         }
     }
 
-    private int center() {
+    private Person firstPerson() {
+        return PersonCreator.createPersonWithSuffix(firstPosition());
+    }
+
+    private Person randomPerson() {
+        return PersonCreator.createRandomPerson(lastPosition());
+    }
+
+    private Person lastPerson() {
+        return PersonCreator.createPersonWithSuffix(lastPosition());
+    }
+
+    private int centerPosition() {
         return size / 2;
     }
 
-    private int last() {
+    private int lastPosition() {
         return size - 1;
     }
 
-    private int first() {
+    private int firstPosition() {
         return 0;
     }
 
