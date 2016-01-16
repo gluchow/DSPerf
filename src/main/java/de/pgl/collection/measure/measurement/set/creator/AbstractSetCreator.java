@@ -8,4 +8,10 @@ public abstract class AbstractSetCreator<T> implements SetCreator<T> {
         }
     }
 
+    protected void printCurrentSizeAt100000(int size) {
+        if (size > 0 && size % 100000 == 0) { // avoid size 0
+            System.out.println("Creating set: " + getImplName() + " - current size: " + size);
+        }
+    }
+
 }

@@ -1,7 +1,8 @@
 package de.pgl.collection.measure;
 
 import de.pgl.collection.measure.data.Person;
-import de.pgl.collection.measure.measurement.list.ListMeasurements;
+import de.pgl.collection.measure.measurement.set.IntegerSetMeasurements;
+import de.pgl.collection.measure.measurement.set.PersonSetMeasurements;
 import org.apache.commons.collections.list.TreeList;
 
 import java.util.ArrayList;
@@ -19,19 +20,21 @@ public class Main {
 
 
     public static void main(String[] args) {
-        createBigListBeforeTest(TWENTY_MILLION);
+        createBigListBeforeTest(ONE_THOUSAND);
 
-        new ListMeasurements(ONE_THOUSAND).performMeasurements();
-//        new SetMeasurements(ONE_THOUSAND).performMeasurements();
+//        new IntegerListMeasurements(ONE_THOUSAND).performMeasurements();
+//        new PersonListMeasurements(ONE_THOUSAND).performMeasurements();
+        new IntegerSetMeasurements(ONE_THOUSAND).performMeasurements();
+        new PersonSetMeasurements(ONE_THOUSAND).performMeasurements();
 //
-//        new ListMeasurements(HUNDRED_THOUSAND).performMeasurements();
-//        new SetMeasurements(HUNDRED_THOUSAND).performMeasurements();
+//        new IntegerListMeasurements(HUNDRED_THOUSAND).performMeasurements();
+//        new IntegerSetMeasurements(HUNDRED_THOUSAND).performMeasurements();
 //
-//        new ListMeasurements(ONE_MILLION).performMeasurements();
-//        new SetMeasurements(ONE_MILLION).performMeasurements();
+//        new IntegerListMeasurements(ONE_MILLION).performMeasurements();
+//        new IntegerSetMeasurements(ONE_MILLION).performMeasurements();
 //
-//        new ListMeasurements(TEN_MILLION).performMeasurements();
-//        new SetMeasurements(TEN_MILLION).performMeasurements();
+//        new IntegerListMeasurements(TEN_MILLION).performMeasurements();
+//        new IntegerSetMeasurements(TEN_MILLION).performMeasurements();
 
 //        testTreeMap();
 //        testHashMap();

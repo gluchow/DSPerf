@@ -8,22 +8,22 @@ import de.pgl.collection.measure.measurement.list.creator.*;
 
 import java.util.*;
 
-public class ListMeasurements {
+public class IntegerListMeasurements {
     private final int size;
     private MeasurementsHolder measurementsHolder = new MeasurementsHolder();
 
-    public ListMeasurements(int size) {
+    public IntegerListMeasurements(int size) {
         this.size = size;
     }
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
-            proceedListOperations(new ArrayListCreator());
-            proceedListOperations(new LinkedListCreator());
-            proceedListOperations(new GapListCreator());
-            proceedListOperations(new BigListCreator());
-            proceedListOperations(new TreeListCreator());
-            proceedListOperations(new FastTableCreator());
+            proceedListOperations(new IntegerArrayListCreator());
+            proceedListOperations(new IntegerLinkedListCreator());
+            proceedListOperations(new IntegerGapListCreator());
+            proceedListOperations(new IntegerBigListCreator());
+            proceedListOperations(new IntegerTreeListCreator());
+            proceedListOperations(new IntegerFastTableCreator());
         }
 
         MeasurementsWriter.writeMeasurements(measurementsHolder.getDurations());

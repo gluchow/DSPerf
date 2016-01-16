@@ -4,11 +4,11 @@ import javolution.util.FastSet;
 
 import java.util.Set;
 
-public class FastSetCreator extends AbstractSetCreator<Integer> {
+public class IntegerFastSetCreator extends AbstractSetCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "FastSet";
+        return "FastSet - Integer";
     }
 
     @Override
@@ -18,6 +18,7 @@ public class FastSetCreator extends AbstractSetCreator<Integer> {
         Set<Integer> result = new FastSet<>(size);
         for (int i = 0; i < size; i++) {
             result.add(i);
+            printCurrentSizeAt100000(i);
         }
         return result;
     }

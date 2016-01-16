@@ -1,21 +1,21 @@
 package de.pgl.collection.measure.measurement.list.creator;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-public class ArrayListCreator extends AbstractListCreator<Integer> {
+public class IntegerLinkedListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
-        return "ArrayList - Integer";
+        return "LinkedList - Integer";
     }
 
     @Override
     public List<Integer> createOrderedList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<Integer> result = new ArrayList<>(size);
+        List<Integer> result = new LinkedList<>();
         for (int i = 0; i < size; i++) {
             result.add(i);
             printCurrentSizeAt100000(i);
@@ -27,7 +27,7 @@ public class ArrayListCreator extends AbstractListCreator<Integer> {
     public List<Integer> createRandomList(int size) {
         ensureSizeGreaterZero(size);
 
-        List<Integer> result = new ArrayList<>(size);
+        List<Integer> result = new LinkedList<>();
         for (int i = 0; i < size; i++) {
             result.add(new Random().nextInt(size));
             printCurrentSizeAt100000(i);

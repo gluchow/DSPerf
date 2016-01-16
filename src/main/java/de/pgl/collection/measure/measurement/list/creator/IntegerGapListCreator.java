@@ -5,7 +5,7 @@ import org.magicwerk.brownies.collections.GapList;
 import java.util.List;
 import java.util.Random;
 
-public class GapListCreator extends AbstractListCreator<Integer> {
+public class IntegerGapListCreator extends AbstractListCreator<Integer> {
 
     @Override
     public String getImplName() {
