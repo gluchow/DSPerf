@@ -35,6 +35,4 @@ public class ArrayListCreator extends AbstractListCreator<Integer> {
         return result;
     }
 
-
-
 }

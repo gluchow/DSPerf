@@ -9,7 +9,7 @@ public abstract class AbstractListCreator<T> implements ListCreator<T> {
     }
 
     protected void printCurrentSizeAt100000(int size) {
-        if (size % 100000 == 0) {
+        if (size > 0 && size % 100000 == 0) { // avoid size 0
             System.out.println("Creating list: " + getImplName() + " - current size: " + size);
         }
     }
