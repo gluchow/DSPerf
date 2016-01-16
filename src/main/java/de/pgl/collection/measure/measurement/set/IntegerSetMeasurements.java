@@ -22,6 +22,7 @@ public class IntegerSetMeasurements {
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
+            System.out.println("--- integer set operations for size " + size + ", iteration: " + i);
             proceedListOperations(new IntegerTreeSetCreator());
             proceedListOperations(new IntegerHashSetCreator());
             proceedListOperations(new IntegerFastSetCreator());

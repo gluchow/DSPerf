@@ -18,6 +18,7 @@ public class IntegerListMeasurements {
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
+            System.out.println("--- integer list operations for size " + size + ", iteration: " + i);
             proceedListOperations(new IntegerArrayListCreator());
             proceedListOperations(new IntegerLinkedListCreator());
             proceedListOperations(new IntegerGapListCreator());

@@ -27,6 +27,7 @@ public class PersonSetMeasurements {
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
+            System.out.println("--- person set operations for size " + size + ", iteration: " + i);
             proceedListOperations(new PersonTreeSetCreator());
             proceedListOperations(new PersonHashSetCreator());
             proceedListOperations(new PersonFastSetCreator());

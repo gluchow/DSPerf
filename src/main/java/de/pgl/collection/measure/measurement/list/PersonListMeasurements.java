@@ -23,6 +23,7 @@ public class PersonListMeasurements {
 
     public void performMeasurements() {
         for (int i = 0; i < Configs.PERFORM_REPETITION; i++) {
+            System.out.println("--- person list operations for size " + size + ", iteration: " + i);
             proceedListOperations(new PersonArrayListCreator());
             proceedListOperations(new PersonLinkedListCreator());
             proceedListOperations(new PersonGapListCreator());
