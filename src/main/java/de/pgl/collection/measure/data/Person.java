@@ -3,13 +3,11 @@ package de.pgl.collection.measure.data;
 public class Person implements Comparable<Person> {
     private String name;
     private String email;
-    private int age;
     private String address;
 
-    public Person(String name, String email, int age, String address) {
+    public Person(String name, String email, String address) {
         this.name = name;
         this.email = email;
-        this.age = age;
         this.address = address;
     }
 
@@ -20,7 +18,6 @@ public class Person implements Comparable<Person> {
 
         Person person = (Person) o;
 
-        if (age != person.age) return false;
         if (name != null ? !name.equals(person.name) : person.name != null) return false;
         if (email != null ? !email.equals(person.email) : person.email != null) return false;
         return !(address != null ? !address.equals(person.address) : person.address != null);
@@ -31,9 +28,17 @@ public class Person implements Comparable<Person> {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + age;
         result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 
     @Override
@@ -48,11 +53,6 @@ public class Person implements Comparable<Person> {
             return emailCompare;
         }
 
-        int addressCompare = address.compareTo(other.address);
-        if (addressCompare != 0) {
-            return addressCompare;
-        }
-
-        return new Integer(age).compareTo(other.age);
+        return address.compareTo(other.address);
     }
 }

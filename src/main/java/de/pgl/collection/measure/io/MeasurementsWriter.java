@@ -20,12 +20,6 @@ public class MeasurementsWriter {
         }
     }
 
-//    public static void writeMeasurements(Map<String, Long> measurements) {
-//        init();
-//        measurements.forEach(MeasurementsWriter::writeLine);
-//        writer.close();
-//    }
-
     public static void writeMeasurements(Map<String, String> measurements) {
         init();
         measurements.forEach(MeasurementsWriter::writeLine);

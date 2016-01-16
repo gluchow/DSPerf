@@ -7,17 +7,17 @@ public class Measurement {
     private String implClass;
     private String method;
     private int size;
-    private Long durationInMs;
+    private Long duration;
 
     public Measurement(String implClass, String method, int size, Execution execution) {
         this.implClass = implClass;
         this.method = method;
         this.size = size;
-        this.durationInMs = execution.durationInMs();
+        this.duration = execution.durationInNanoseconds();
     }
 
-    public Long getDurationInMs() {
-        return durationInMs;
+    public Long getDuration() {
+        return duration;
     }
 
     public String getConfig() {

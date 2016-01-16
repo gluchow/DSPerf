@@ -62,7 +62,7 @@ public class MeasurementsHolderTest {
     private Measurement createMeasurementMockWithDuration(String configName, Long duration) {
         Measurement measurement = mock(Measurement.class);
         when(measurement.getConfig()).thenReturn(configName);
-        when(measurement.getDurationInMs()).thenReturn(duration);
+        when(measurement.getDuration()).thenReturn(duration);
         return measurement;
     }
 

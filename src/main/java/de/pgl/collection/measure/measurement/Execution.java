@@ -10,4 +10,10 @@ public interface Execution {
         execute();
         return System.currentTimeMillis() - start;
     }
+
+    default long durationInNanoseconds() {
+        long start = System.nanoTime();
+        execute();
+        return System.nanoTime() - start;
+    }
 }

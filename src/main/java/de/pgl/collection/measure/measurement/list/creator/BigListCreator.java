@@ -29,7 +29,7 @@ public class BigListCreator extends AbstractListCreator<Integer> {
 
         List<Integer> result = new BigList<>(size);
         for (int i = 0; i < size; i++) {
-            result.add(new Random().nextInt());
+            result.add(new Random().nextInt(size));
         }
         return result;
     }
